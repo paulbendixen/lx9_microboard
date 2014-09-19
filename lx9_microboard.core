@@ -1,0 +1,34 @@
+CAPI=1
+[main]
+description = "LX9 MicroBoard"
+
+simulators = icarus
+
+depend = 
+ adv_debug_sys
+ gpio
+ mor1kx
+ wb_intercon
+ wb_ram
+
+[verilog]
+src_files =
+ rtl/verilog/wb_intercon.v
+ rtl/verilog/lx9_microboard_top.v
+include_files =
+ sw/led_blink.vh
+ rtl/verilog/include/timescale.v
+ rtl/verilog/include/wb_intercon.vh
+tb_private_src_files =
+ bench/lx9_microboard_tb.v
+tb_include_files = bench/test-defines.v
+
+[simulator]
+toplevel=lx9_microboard_tb
+
+[icarus]
+depend = elf-loader
+iverilog_options = -y$XILINX/verilog/src/unisims/
+
+[modelsim]
+depend = elf-loader
